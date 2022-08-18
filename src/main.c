@@ -38,31 +38,44 @@ void endTurn()
             return;
         }
 
-        d = rand()%4;
-        for (j = 0; j < 4; j++) {
-            d = (d+1)%4;
+        for (d = 0; d < 4; d++) {
             x = skeletons[i].loc%mapsz+dirs[d*2];
             y = skeletons[i].loc/mapsz+dirs[d*2+1];
-
-            if (x < 0 || y < 0 || x >= mapsz || y >= mapsz) {
-                continue;
-            }
-
-            if (map[y*mapsz+x]) {
-                if (skeletons[i].loc == playerLoc) {
-                    printf("A skeleton exits to the %s...\n", dirstrs[d]);
-                }
-                skeletons[i].loc = y*mapsz+x;
+            if (x == playerLoc%mapsz && y == playerLoc/mapsz) {
                 break;
             }
         }
 
+        if (d == 4) {
+            d = rand()%4;
+
+            for (j = 0; j < 4; j++) {
+                d = (d+1)%4;
+                x = skeletons[i].loc%mapsz+dirs[d*2];
+                y = skeletons[i].loc/mapsz+dirs[d*2+1];
+
+                if (x < 0 || y < 0 || x >= mapsz || y >= mapsz) {
+                    continue;
+                }
+
+                if (map[y*mapsz+x]) {
+                    break;
+                }
+            }
+        }
+
+        if (skeletons[i].loc == playerLoc) {
+            printf("A skeleton exits to the %s...\n", dirstrs[d]);
+        }
+        skeletons[i].loc = y*mapsz+x;
         skeletons[i].flags &= SFLAG_MOVED;
 
         if (skeletons[i].loc == playerLoc) {
             if (playerFlags & PFLAG_DUCK) {
                 printf("A skeleton trips over you, and smashes to pieces!\n");
                 skeletons[i--] = skeletons[--numSkeletons];
+                playerFlags ^= PFLAG_DUCK;
+                playerGold++;
                 continue;
             }
 
@@ -107,7 +120,7 @@ void printHelp()
 "\n"
 "  up/down       - travel up or down a flight of stairs\n"
 "\n"
-"  duck          - trip incoming skeletons over\n"
+"  duck          - trip up one incoming skeleton\n"
 "  fire <dir>    - quickly shoot a skeleton with your trusty revolver\n"
 "  take <item>   - pick something up\n"
 "\n"

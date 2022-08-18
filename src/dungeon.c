@@ -20,8 +20,8 @@ void genMap(int lvl)
     case 1:
         sz = 4;
         skelodds = 8;
-        goldodds = 7;
-        ammoodds = 10;
+        goldodds = 6;
+        ammoodds = 3;
         break;
     case 2:
     case 3:
@@ -29,13 +29,13 @@ void genMap(int lvl)
         sz = 5;
         skelodds = 5;
         goldodds = 4;
-        ammoodds = 8;
+        ammoodds = 5;
         break;
     default:
         sz = 6;
         skelodds = 3;
         goldodds = 2;
-        ammoodds = 6;
+        ammoodds = 7;
         break;
     }
 
