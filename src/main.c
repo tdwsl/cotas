@@ -92,6 +92,7 @@ void tryMove(int d)
 
     printf("You move %s.\n\n", dirstrs[d]);
     playerLoc = i;
+    rooms[map[playerLoc]-1].flags |= RFLAG_KNOWN;
 
     endTurn();
     describeRoom();
