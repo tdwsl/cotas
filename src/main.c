@@ -29,7 +29,7 @@ void endTurn()
                 playerAmmo = 0;
                 playerFlags ^= PFLAG_REVOLVER;
                 printf("A skeleton touches your revolver,"
-                    " causing it to crumble to dust.\n");
+                    " causing it to crumble to dust!\n\n");
             } else {
                 printf("A skeleton eats your soul!\n");
                 printScore();

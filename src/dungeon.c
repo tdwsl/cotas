@@ -108,8 +108,8 @@ void genMap(int lvl)
         rooms[i].desc = rand()%256;
         rooms[i].flags = 0;
 
-        if (i == 0 && playerFlags && PFLAG_REVOLVER == 0) {
-            if (rand()%5) {
+        if (i == 0 && !(playerFlags & PFLAG_REVOLVER)) {
+            if (rand()%5 || currentLevel == maxLevel) {
                 rooms[i].flags |= RFLAG_REVOLVER;
             }
         }
